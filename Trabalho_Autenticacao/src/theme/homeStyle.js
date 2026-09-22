@@ -9,10 +9,6 @@ import {
 } from './style';
 
 const homeStyles = StyleSheet.create({
-  // =====================================================
-  // CONTAINER PRINCIPAL
-  // =====================================================
-
   container: {
     flex: 1,
     backgroundColor: colors.background,
@@ -23,10 +19,6 @@ const homeStyles = StyleSheet.create({
     paddingHorizontal: spacing.lg,
     paddingVertical: spacing.lg,
   },
-
-  // =====================================================
-  // CABEÇALHO
-  // =====================================================
 
   header: {
     flexDirection: 'row',
@@ -67,10 +59,6 @@ const homeStyles = StyleSheet.create({
     borderRadius: radius.round,
   },
 
-  // =====================================================
-  // ÁREA DE DESTAQUE
-  // =====================================================
-
   highlight: {
     backgroundColor: colors.primary,
     borderRadius: radius.xl,
@@ -91,10 +79,6 @@ const homeStyles = StyleSheet.create({
     lineHeight: 22,
   },
 
-  // =====================================================
-  // TÍTULOS DE SEÇÃO
-  // =====================================================
-
   section: {
     marginBottom: spacing.lg,
   },
@@ -105,10 +89,6 @@ const homeStyles = StyleSheet.create({
     color: colors.text,
     marginBottom: spacing.md,
   },
-
-  // =====================================================
-  // CARDS
-  // =====================================================
 
   card: {
     backgroundColor: colors.white,
@@ -150,10 +130,6 @@ const homeStyles = StyleSheet.create({
     lineHeight: 20,
   },
 
-  // =====================================================
-  // CARDS DE INFORMAÇÃO
-  // =====================================================
-
   infoContainer: {
     flexDirection: 'row',
     gap: spacing.md,
@@ -180,10 +156,6 @@ const homeStyles = StyleSheet.create({
     color: colors.textSecondary,
   },
 
-  // =====================================================
-  // BOTÃO
-  // =====================================================
-
   primaryButton: {
     minHeight: 52,
     backgroundColor: colors.primary,
@@ -203,10 +175,6 @@ const homeStyles = StyleSheet.create({
     fontWeight: '700',
     color: colors.white,
   },
-
-  // =====================================================
-  // ESTADO VAZIO
-  // =====================================================
 
   emptyContainer: {
     backgroundColor: colors.white,

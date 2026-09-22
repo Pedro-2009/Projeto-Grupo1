@@ -8,10 +8,6 @@ import {
 } from './style';
 
 const loginStyles = StyleSheet.create({
-  // =====================================================
-  // CONTAINER PRINCIPAL
-  // =====================================================
-
   container: {
     flex: 1,
     backgroundColor: colors.background,
@@ -24,28 +20,22 @@ const loginStyles = StyleSheet.create({
     paddingVertical: spacing.xl,
   },
 
-  // =====================================================
-  // CABEÇALHO
-  // =====================================================
-
   header: {
     alignItems: 'center',
     marginBottom: spacing.xl,
   },
 
   logoContainer: {
-    width: 96,
-    height: 96,
-    borderRadius: radius.xl,
-    backgroundColor: colors.primary,
+    width: 112,
+    height: 112,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: spacing.lg,
   },
 
   logo: {
-    width: 68,
-    height: 68,
+    width: 112,
+    height: 112,
     resizeMode: 'contain',
   },
 
@@ -63,10 +53,6 @@ const loginStyles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 22,
   },
-
-  // =====================================================
-  // FORMULÁRIO
-  // =====================================================
 
   form: {
     width: '100%',
@@ -86,15 +72,11 @@ const loginStyles = StyleSheet.create({
   input: {
     width: '100%',
     minHeight: 52,
-
     backgroundColor: colors.white,
-
     borderWidth: 1,
     borderColor: colors.border,
     borderRadius: radius.md,
-
     paddingHorizontal: spacing.md,
-
     fontSize: typography.body,
     color: colors.text,
   },
@@ -103,21 +85,13 @@ const loginStyles = StyleSheet.create({
     borderColor: colors.primary,
   },
 
-  // =====================================================
-  // AÇÕES
-  // =====================================================
-
   button: {
     width: '100%',
     minHeight: 52,
-
     backgroundColor: colors.primary,
-
     borderRadius: radius.md,
-
     justifyContent: 'center',
     alignItems: 'center',
-
     marginTop: spacing.sm,
   },
 
@@ -131,10 +105,6 @@ const loginStyles = StyleSheet.create({
     fontWeight: '700',
   },
 
-  // =====================================================
-  // TEXTOS AUXILIARES
-  // =====================================================
-
   secondaryAction: {
     alignItems: 'center',
     marginTop: spacing.lg,
@@ -145,10 +115,6 @@ const loginStyles = StyleSheet.create({
     color: colors.primary,
     fontWeight: '600',
   },
-
-  // =====================================================
-  // ÁREA INFERIOR
-  // =====================================================
 
   footer: {
     alignItems: 'center',

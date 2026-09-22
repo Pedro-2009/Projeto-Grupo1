@@ -60,6 +60,7 @@ const modalStyles = StyleSheet.create({
 
   buttonContainer: {
     width: '100%',
+    marginTop: spacing.md,
   },
 
   primaryButton: {

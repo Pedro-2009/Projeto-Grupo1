@@ -9,7 +9,7 @@ import splashStyles from '../src/theme/splashStyle';
 
 export default function SplashScreen() {
   const opacity = useRef(new Animated.Value(0)).current;
-  const scale = useRef(new Animated.Value(0.8)).current;
+  const scale = useRef(new Animated.Value(0.9)).current;
 
   useEffect(() => {
     Animated.parallel([
@@ -22,11 +22,10 @@ export default function SplashScreen() {
       Animated.spring(scale, {
         toValue: 1,
         friction: 6,
-        tension: 45,
         useNativeDriver: true,
       }),
     ]).start();
-  }, []);
+  }, [opacity, scale]);
 
   return (
     <View style={splashStyles.container}>

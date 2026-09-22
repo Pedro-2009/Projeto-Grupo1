@@ -1,58 +1,21 @@
 import { StyleSheet } from 'react-native';
 
-/*
- * =====================================================
- * TEMA GLOBAL — TRABALHO AUTENTICAÇÃO
- * =====================================================
- *
- * Este arquivo contém apenas valores e estilos
- * reutilizáveis pelo restante da aplicação.
- *
- * Os estilos específicos de cada tela ficam separados:
- *
- * loginStyle.js
- * homeStyle.js
- * perfilStyle.js
- * modalStyle.js
- *
- * Identidade visual baseada na logo do projeto.
- */
-
 const colors = {
-  // Roxo principal da identidade visual
   primary: '#5A41DF',
-
-  // Roxo mais escuro para contraste
   primaryDark: '#3F2BA8',
-
-  // Roxo mais claro para complementar
   primaryLight: '#7C68EA',
-
-  // Roxo bem claro para fundos e áreas suaves
   primarySoft: '#EEECFC',
 
-  // Branco principal
   white: '#FFFFFF',
-
-  // Fundo geral da aplicação
   background: '#F8F7FC',
 
-  // Texto principal
   text: '#211D35',
-
-  // Texto secundário
   textSecondary: '#6B6780',
 
-  // Cinza para elementos desativados
   disabled: '#B8B4C8',
-
-  // Bordas
   border: '#E3E0EF',
 
-  // Área de erro
   error: '#D64545',
-
-  // Área de sucesso
   success: '#35A66F',
 };
 
@@ -162,12 +125,6 @@ const styles = StyleSheet.create({
   },
 });
 
-export {
-  colors,
-  spacing,
-  radius,
-  typography,
-  shadows,
-};
+export { colors, spacing, radius, typography, shadows };
 
 export default styles;

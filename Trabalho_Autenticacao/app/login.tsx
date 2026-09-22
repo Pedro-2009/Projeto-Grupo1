@@ -9,11 +9,24 @@ import {
   View,
 } from 'react-native';
 
+// 1. CORREÇÃO: Importar o useRouter do expo-router
+import { useRouter } from 'expo-router';
+
 import loginStyles from '../src/theme/loginStyle';
 
 export default function LoginScreen() {
+  const router = useRouter(); // 2. CORREÇÃO: Inicializar o roteador
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  // 3. Lógica para entrar no aplicativo
+  const handleLogin = () => {
+    // Aqui você faria a validação de e-mail e senha. 
+    // Se estiver tudo certo, redirecionamos para a Home:
+    router.replace('/home'); 
+    // Usamos .replace() para apagar a tela de login do histórico.
+    // Assim, se o usuário clicar em "Voltar" na Home, ele não retorna ao login.
+  };
 
   return (
     <View style={loginStyles.container}>
@@ -78,6 +91,7 @@ export default function LoginScreen() {
 
           {/* Entrar */}
           <Pressable
+            onPress={handleLogin} // 4. CORREÇÃO: Adicionado evento de clique para a Home
             style={({ pressed }) => [
               loginStyles.button,
               pressed && loginStyles.buttonPressed,
@@ -89,7 +103,10 @@ export default function LoginScreen() {
           </Pressable>
 
           {/* Recuperação */}
-          <Pressable style={loginStyles.secondaryAction}>
+          <Pressable 
+            onPress={() => router.push('/modal')} // 5. CORREÇÃO: Abre o modal por cima sem sumir com o login
+            style={loginStyles.secondaryAction}
+          >
             <Text style={loginStyles.secondaryActionText}>
               Esqueci minha senha
             </Text>

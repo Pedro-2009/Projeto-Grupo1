@@ -6,9 +6,14 @@ import {
   View,
 } from 'react-native';
 
+// 1. CORREÇÃO: Importar o useRouter do expo-router
+import { useRouter } from 'expo-router';
+
 import homeStyles from '../src/theme/homeStyle';
 
 export default function HomeScreen() {
+  const router = useRouter(); // 2. CORREÇÃO: Inicializar o roteador
+
   return (
     <View style={homeStyles.container}>
       <ScrollView
@@ -27,7 +32,11 @@ export default function HomeScreen() {
             </Text>
           </View>
 
-          <Pressable style={homeStyles.profileButton}>
+          {/* 3. CORREÇÃO: Atalho rápido clicando na foto de perfil */}
+          <Pressable 
+            style={homeStyles.profileButton}
+            onPress={() => router.push('/perfil')}
+          >
             <Image
               source={require('../assets/images/logo.png')}
               style={homeStyles.profileImage}
@@ -103,7 +112,11 @@ export default function HomeScreen() {
         </View>
 
         {/* Botão */}
-        <Pressable style={homeStyles.primaryButton}>
+        {/* 4. CORREÇÃO: Botão principal para acessar o perfil */}
+        <Pressable 
+          style={homeStyles.primaryButton}
+          onPress={() => router.push('/perfil')}
+        >
           <Text style={homeStyles.primaryButtonText}>
             Acessar perfil
           </Text>

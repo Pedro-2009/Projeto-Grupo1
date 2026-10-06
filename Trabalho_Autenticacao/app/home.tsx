@@ -1,3 +1,5 @@
+import { useCallback, useState } from 'react';
+import { useFocusEffect, useRouter } from 'expo-router';
 import {
   Image,
   Pressable,
@@ -6,13 +8,33 @@ import {
   View,
 } from 'react-native';
 
-// 1. CORREÇÃO: Importar o useRouter do expo-router
-import { useRouter } from 'expo-router';
-
 import homeStyles from '../src/theme/homeStyle';
+import { ehAdmin, obterSessao } from '../src/database/storage';
 
 export default function HomeScreen() {
-  const router = useRouter(); // 2. CORREÇÃO: Inicializar o roteador
+  const router = useRouter();
+  const [nome, setNome] = useState('Usuário');
+  const [admin, setAdmin] = useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      let ativo = true;
+
+      obterSessao().then((sessao) => {
+        if (!ativo) return;
+        if (!sessao) {
+          router.replace('/login');
+          return;
+        }
+        setNome(sessao.usuario.nome);
+        setAdmin(ehAdmin(sessao));
+      });
+
+      return () => {
+        ativo = false;
+      };
+    }, [router])
+  );
 
   return (
     <View style={homeStyles.container}>
@@ -28,12 +50,11 @@ export default function HomeScreen() {
             </Text>
 
             <Text style={homeStyles.userName}>
-              Usuário
+              {nome}
             </Text>
           </View>
 
-          {/* 3. CORREÇÃO: Atalho rápido clicando na foto de perfil */}
-          <Pressable 
+          <Pressable
             style={homeStyles.profileButton}
             onPress={() => router.push('/perfil')}
           >
@@ -111,9 +132,35 @@ export default function HomeScreen() {
           </View>
         </View>
 
+        {/* Área do administrador (cargo ID 1) */}
+        {admin && (
+          <View style={homeStyles.section}>
+            <Text style={homeStyles.sectionTitle}>
+              Administração
+            </Text>
+
+            <View style={homeStyles.card}>
+              <View style={homeStyles.cardRow}>
+                <View style={homeStyles.cardIcon}>
+                  <Text>🛡</Text>
+                </View>
+
+                <View style={homeStyles.cardContent}>
+                  <Text style={homeStyles.cardTitle}>
+                    Painel do administrador
+                  </Text>
+
+                  <Text style={homeStyles.cardText}>
+                    Esta área só aparece para contas com cargo de administrador.
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        )}
+
         {/* Botão */}
-        {/* 4. CORREÇÃO: Botão principal para acessar o perfil */}
-        <Pressable 
+        <Pressable
           style={homeStyles.primaryButton}
           onPress={() => router.push('/perfil')}
         >

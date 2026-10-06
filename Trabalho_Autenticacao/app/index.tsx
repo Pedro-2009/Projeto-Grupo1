@@ -1,16 +1,16 @@
 import { useEffect, useRef } from 'react';
+import { useRouter } from 'expo-router';
 import {
   Animated,
   Image,
   View,
 } from 'react-native';
-// 1. IMPORTANTE: Importar o useRouter para controlar a navegação
-import { useRouter } from 'expo-router'; 
 
 import splashStyles from '../src/theme/splashStyle';
+import { obterSessao } from '../src/database/storage';
 
 export default function SplashScreen() {
-  const router = useRouter(); // 2. Inicializar o roteador
+  const router = useRouter();
   const opacity = useRef(new Animated.Value(0)).current;
   const scale = useRef(new Animated.Value(0.9)).current;
 
@@ -27,14 +27,28 @@ export default function SplashScreen() {
         friction: 6,
         useNativeDriver: true,
       }),
-    ]).start(() => {
-      // 3. CORREÇÃO: Quando a animação terminar, esperamos um pouquinho e vamos para o Login
-      setTimeout(() => {
-        // Usamos .replace() para o usuário NÃO conseguir voltar para a Splash ao apertar "Voltar"
-        router.replace('/login'); 
-      }, 1500); // 1.5 segundos exibindo a logo estática pós-animação antes de mudar de tela
-    });
-  }, [opacity, scale, router]); // Adicionado router nas dependências
+    ]).start();
+  }, [opacity, scale]);
+
+  useEffect(() => {
+    let ativo = true;
+
+    async function verificarSessao() {
+      const [sessao] = await Promise.all([
+        obterSessao(),
+        new Promise((resolve) => setTimeout(resolve, 1500)),
+      ]);
+
+      if (!ativo) return;
+      router.replace(sessao ? '/home' : '/login');
+    }
+
+    verificarSessao();
+
+    return () => {
+      ativo = false;
+    };
+  }, [router]);
 
   return (
     <View style={splashStyles.container}>

@@ -20,6 +20,19 @@ const perfilStyles = StyleSheet.create({
     paddingVertical: spacing.lg,
   },
 
+  backButton: {
+    alignSelf: 'flex-start',
+    marginBottom: spacing.md,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.sm,
+  },
+
+  backButtonText: {
+    fontSize: typography.small,
+    fontWeight: '600',
+    color: colors.primary,
+  },
+
   header: {
     alignItems: 'center',
     marginBottom: spacing.xl,

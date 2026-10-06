@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'expo-router';
 
 import {
   Image,
@@ -9,24 +10,31 @@ import {
   View,
 } from 'react-native';
 
-// 1. CORREÇÃO: Importar o useRouter do expo-router
-import { useRouter } from 'expo-router';
-
 import loginStyles from '../src/theme/loginStyle';
+import { login } from '../src/database/storage';
 
 export default function LoginScreen() {
-  const router = useRouter(); // 2. CORREÇÃO: Inicializar o roteador
+  const router = useRouter();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [carregando, setCarregando] = useState(false);
+  const [erro, setErro] = useState('');
 
-  // 3. Lógica para entrar no aplicativo
-  const handleLogin = () => {
-    // Aqui você faria a validação de e-mail e senha. 
-    // Se estiver tudo certo, redirecionamos para a Home:
-    router.replace('/home'); 
-    // Usamos .replace() para apagar a tela de login do histórico.
-    // Assim, se o usuário clicar em "Voltar" na Home, ele não retorna ao login.
-  };
+  async function handleSubmit() {
+    try {
+      setCarregando(true);
+      setErro('');
+
+      await login(email, password);
+      router.replace('/home');
+    } catch (error: any) {
+      console.log('Erro no login:', error);
+      setErro(error?.message ?? 'Algo deu errado.');
+    } finally {
+      setCarregando(false);
+    }
+  }
 
   return (
     <View style={loginStyles.container}>
@@ -55,13 +63,8 @@ export default function LoginScreen() {
 
         {/* Formulário */}
         <View style={loginStyles.form}>
-
-          {/* E-mail */}
           <View style={loginStyles.field}>
-            <Text style={loginStyles.label}>
-              E-mail
-            </Text>
-
+            <Text style={loginStyles.label}>E-mail</Text>
             <TextInput
               style={loginStyles.input}
               placeholder="Digite seu e-mail"
@@ -73,12 +76,8 @@ export default function LoginScreen() {
             />
           </View>
 
-          {/* Senha */}
           <View style={loginStyles.field}>
-            <Text style={loginStyles.label}>
-              Senha
-            </Text>
-
+            <Text style={loginStyles.label}>Senha</Text>
             <TextInput
               style={loginStyles.input}
               placeholder="Digite sua senha"
@@ -89,28 +88,25 @@ export default function LoginScreen() {
             />
           </View>
 
-          {/* Entrar */}
+          {erro !== '' && (
+            <Text style={{ color: '#E5484D', marginTop: 8, textAlign: 'center' }}>
+              {erro}
+            </Text>
+          )}
+
           <Pressable
-            onPress={handleLogin} // 4. CORREÇÃO: Adicionado evento de clique para a Home
+            disabled={carregando}
+            onPress={handleSubmit}
             style={({ pressed }) => [
               loginStyles.button,
               pressed && loginStyles.buttonPressed,
             ]}
           >
             <Text style={loginStyles.buttonText}>
-              Entrar
+              {carregando ? 'Aguarde...' : 'Entrar'}
             </Text>
           </Pressable>
 
-          {/* Recuperação */}
-          <Pressable 
-            onPress={() => router.push('/modal')} // 5. CORREÇÃO: Abre o modal por cima sem sumir com o login
-            style={loginStyles.secondaryAction}
-          >
-            <Text style={loginStyles.secondaryActionText}>
-              Esqueci minha senha
-            </Text>
-          </Pressable>
         </View>
 
         {/* Rodapé */}

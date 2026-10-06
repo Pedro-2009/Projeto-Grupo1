@@ -157,12 +157,7 @@ export default function PerfilScreen() {
         {/* Ações */}
         <View style={perfilStyles.section}>
 
-          <Pressable style={perfilStyles.button}>
-            <Text style={perfilStyles.buttonText}>
-              Editar perfil
-            </Text>
-          </Pressable>
-
+          
           <Pressable
             style={perfilStyles.logoutButton}
             onPress={handleLogout}

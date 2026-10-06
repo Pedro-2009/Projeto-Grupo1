@@ -11,6 +11,7 @@ import {
 import perfilStyles from '../src/theme/perfilStyle';
 import { logout, obterSessao } from '../src/database/storage';
 import { NOMES_CARGO } from '../src/database/users';
+import profileImages from '../src/components/profileImages';
 
 export default function PerfilScreen() {
   const router = useRouter();
@@ -18,6 +19,10 @@ export default function PerfilScreen() {
   const [nome, setNome] = useState('Usuário');
   const [email, setEmail] = useState('');
   const [cargo, setCargo] = useState('');
+
+  const [foto, setFoto] = useState<
+    'admin' | 'membro' | 'lucas' | 'beatriz' | 'gabriel'
+  >('membro');
 
   useFocusEffect(
     useCallback(() => {
@@ -33,9 +38,12 @@ export default function PerfilScreen() {
 
         setNome(sessao.usuario.nome);
         setEmail(sessao.usuario.email);
+
         setCargo(
           NOMES_CARGO[sessao.usuario.cargoId as 1 | 2] ?? 'Membro'
         );
+
+        setFoto(sessao.usuario.foto ?? 'membro');
       });
 
       return () => {
@@ -74,7 +82,7 @@ export default function PerfilScreen() {
         <View style={perfilStyles.header}>
           <View style={perfilStyles.profileImageContainer}>
             <Image
-              source={require('../assets/images/logo.png')}
+              source={profileImages[foto]}
               style={perfilStyles.profileImage}
             />
           </View>
@@ -157,7 +165,6 @@ export default function PerfilScreen() {
         {/* Ações */}
         <View style={perfilStyles.section}>
 
-          
           <Pressable
             style={perfilStyles.logoutButton}
             onPress={handleLogout}

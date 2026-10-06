@@ -10,11 +10,16 @@ import {
 
 import homeStyles from '../src/theme/homeStyle';
 import { ehAdmin, obterSessao } from '../src/database/storage';
+import profileImages from '../src/components/profileImages';
 
 export default function HomeScreen() {
   const router = useRouter();
   const [nome, setNome] = useState('Usuário');
   const [admin, setAdmin] = useState(false);
+
+  const [foto, setFoto] = useState<
+    'admin' | 'membro' | 'lucas' | 'beatriz' | 'gabriel'
+  >('membro');
 
   useFocusEffect(
     useCallback(() => {
@@ -22,12 +27,15 @@ export default function HomeScreen() {
 
       obterSessao().then((sessao) => {
         if (!ativo) return;
+
         if (!sessao) {
           router.replace('/login');
           return;
         }
+
         setNome(sessao.usuario.nome);
         setAdmin(ehAdmin(sessao));
+        setFoto(sessao.usuario.foto ?? 'membro');
       });
 
       return () => {
@@ -59,7 +67,7 @@ export default function HomeScreen() {
             onPress={() => router.push('/perfil')}
           >
             <Image
-              source={require('../assets/images/logo.png')}
+              source={profileImages[foto]}
               style={homeStyles.profileImage}
             />
           </Pressable>
